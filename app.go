@@ -98,6 +98,32 @@ func main() {
 
 	})
 
+	r.GET("/", func(c *gin.Context) {
+
+		var cities_data []map[string]string
+
+		for _, v := range data {
+
+			
+
+			current_city_data := map[string]string{
+				"City": v.city,
+				"State": v.state,
+				"id": v.id,
+			}
+
+			cities_data = append(cities_data, current_city_data)
+
+			
+			
+
+			}
+			c.JSON(400, gin.H{
+				"Results": cities_data,
+			})
+
+		})
+
 	r.Run("0.0.0.0:9000")
 
 }
