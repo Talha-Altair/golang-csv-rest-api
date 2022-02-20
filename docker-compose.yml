@@ -1,0 +1,19 @@
+version: "3"
+
+services:
+
+  web:
+
+    build: .
+
+    container_name: gin_sample_container
+
+    ports:
+
+      - 8000:9500
+
+    environment:
+
+      - name=talha
+      - PORT=9500
+      - GIN_MODE=release
