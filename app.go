@@ -6,7 +6,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	// "os"
+	"./csv_data"
 	
 	)
 
@@ -14,7 +14,9 @@ func main() {
 
 	r := gin.Default()
 
-	fmt.Println("Starting server")
+	data := csv_data.read()
+
+	fmt.Println("Starting server", data)
 
 	r.GET("/ping", func(c *gin.Context) {
 
