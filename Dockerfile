@@ -1,16 +1,17 @@
-FROM golang:1.17.7-buster as builder
+FROM golang:1.17.7-alpine3.15 as builder
 
-WORKDIR /app
+WORKDIR /code
 
 ADD . .
 
 RUN go mod download
 
-RUN go build -o app-exec
+RUN go build -o app
 
 FROM alpine:3.15.0 as runner
 
-COPY --from=builder /app/app-exec /app
+WORKDIR /
 
-CMD [ "/app" ]
+COPY --from=builder /code/app /usr/local/bin/app
 
+CMD [ "app" ]
