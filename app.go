@@ -5,6 +5,8 @@ import (
 	"fmt"
 
 	"github.com/gin-gonic/gin"
+
+	"strings"
 	
 	)
 
@@ -14,7 +16,7 @@ func main() {
 
 	data := read()
 
-	fmt.Println("Starting server", data)
+	fmt.Println("Starting server")
 
 	r.GET("/ping", func(c *gin.Context) {
 
@@ -27,13 +29,9 @@ func main() {
 
 		city := c.Param("city")
 
-		fmt.Println("City:", city)
-
 		flag := false
 
 		for _, v := range data {
-
-			fmt.Println("City:", v.city)
 
 			if v.city == city {
 
@@ -56,6 +54,48 @@ func main() {
 				"error": "City not found",
 			})
 		}
+	})
+
+	r.GET("/filter", func(c *gin.Context) {
+
+		query := c.DefaultQuery("state", "xxx")
+
+		fmt.Println(query)
+
+		// var cities_data []
+
+		var cities_data []map[string]string
+
+		for _, v := range data {
+
+			if strings.Contains(v.state, query) {
+
+			current_city_data := map[string]string{
+				"City": v.city,
+				"State": v.state,
+				"id": v.id,
+			}
+
+			cities_data = append(cities_data, current_city_data)
+
+			}
+			
+
+			}
+
+			if query == "xxx" {
+
+				c.JSON(400, gin.H{
+					"error": "Please Pass State Parameter",
+				})
+			} else {
+
+		
+			c.JSON(400, gin.H{
+				"Results": cities_data,
+			})
+			}
+
 	})
 
 	r.Run("0.0.0.0:9000")
