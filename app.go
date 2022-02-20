@@ -1,31 +1,46 @@
 package main
 
 import (
-
-	"fmt"
-
-	"github.com/gin-gonic/gin"
-
-	"github.com/joho/godotenv"
-
-	"os"
-
-	"encoding/csv"
+    "encoding/csv"
+    "fmt"
+    "os"
 )
 
+type empData struct {
+    id string
+    state string
+    city string
+}
+
+func read() {
+
+    csvFile, err := os.Open("./data.csv")
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	defer csvFile.Close()
+    
+    csvLines, err := csv.NewReader(csvFile).ReadAll()
+
+    if err != nil {
+        fmt.Println(err)
+    }
+
+
+
+    for _, line := range csvLines {
+
+        emp := empData{
+            id: line[0],
+            state: line[1],
+			city: line[2],
+        }
+
+        fmt.Println(emp.state)
+    }
+}
+
 func main() {
-
-	godotenv.Load()
-
-	app := gin.Default()
-
-	app.GET("/", func(c *gin.Context) {
-
-		c.JSON(200, gin.H{
-			"data": 1,
-			"name": 2,
-		})
-	})
-
-	app.Run()
+	read()
 }
