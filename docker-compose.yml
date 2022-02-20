@@ -6,14 +6,12 @@ services:
 
     build: .
 
-    container_name: gin_sample_container
+    container_name: cities_api
 
     ports:
 
-      - 8000:9500
+      - 9000:9000
 
     environment:
 
-      - name=talha
-      - PORT=9500
       - GIN_MODE=release

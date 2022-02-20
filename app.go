@@ -60,10 +60,6 @@ func main() {
 
 		query := c.DefaultQuery("state", "xxx")
 
-		fmt.Println(query)
-
-		// var cities_data []
-
 		var cities_data []map[string]string
 
 		for _, v := range data {
@@ -77,25 +73,21 @@ func main() {
 			}
 
 			cities_data = append(cities_data, current_city_data)
-
-			}
-			
-
 			}
 
-			if query == "xxx" {
+		}
 
-				c.JSON(400, gin.H{
-					"error": "Please Pass State Parameter",
-				})
-			} else {
+		if query == "xxx" {
 
-		
 			c.JSON(400, gin.H{
-				"Results": cities_data,
+				"error": "Please Pass State Parameter",
 			})
-			}
-
+		} else {
+		
+		c.JSON(400, gin.H{
+			"Results": cities_data,
+		})
+	}
 	})
 
 	r.GET("/", func(c *gin.Context) {
@@ -103,9 +95,7 @@ func main() {
 		var cities_data []map[string]string
 
 		for _, v := range data {
-
 			
-
 			current_city_data := map[string]string{
 				"City": v.city,
 				"State": v.state,
@@ -113,9 +103,6 @@ func main() {
 			}
 
 			cities_data = append(cities_data, current_city_data)
-
-			
-			
 
 			}
 			c.JSON(400, gin.H{
