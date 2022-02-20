@@ -27,7 +27,7 @@ func read() {
         fmt.Println(err)
     }
 
-
+	data := {}
 
     for _, line := range csvLines {
 
@@ -37,8 +37,12 @@ func read() {
 			city: line[2],
         }
 
+		data.append(emp)
+
         fmt.Println(emp.state)
     }
+
+	fmt.Println(data)
 }
 
 func main() {
