@@ -6,7 +6,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"./csv_data"
+	// "csv_data"
 	
 	)
 
@@ -14,7 +14,7 @@ func main() {
 
 	r := gin.Default()
 
-	data := csv_data.read()
+	data := read()
 
 	fmt.Println("Starting server", data)
 

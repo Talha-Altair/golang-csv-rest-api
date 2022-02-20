@@ -46,12 +46,3 @@ func read() []cityData {
 
 	return data
 }
-
-func main() {
-
-
-	data := read()
-
-	fmt.Println(data[0].id)
-
-}
