@@ -6,12 +6,4 @@ ADD . .
 
 RUN go mod download
 
-RUN go build -o app
-
-FROM alpine:3.15.0 as runner
-
-WORKDIR /
-
-COPY --from=builder /code/app /usr/local/bin/app
-
-CMD [ "app" ]
+CMD [ "go", "run", "." ]
